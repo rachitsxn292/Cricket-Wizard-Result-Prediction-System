@@ -65,7 +65,8 @@ app.post('/userData', async (req,res) => {
     const {spawn} = require('child_process');
     console.log('after spawn');
     
-    const python = await spawn('python', ['C:/Users/admin/Desktop/Cricket-Wizard-Result-Prediction-System-master/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+    //const python = await spawn('python', ['C:/Users/admin/Desktop/Cricket-Wizard-Result-Prediction-System-master/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+    const python = await spawn('python', ['C:/Users/admin/Documents/CMPE-295A/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
     console.log('after python file is called');
     python.stderr.pipe(process.stderr);
     python.stdout.on('data', function (data) {

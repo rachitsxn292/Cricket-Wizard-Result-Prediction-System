@@ -52,7 +52,6 @@ score
 import numpy as np
 new_prediction = lin.predict(sc.transform(np.array([[sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5]]])))
 print("Prediction score:" , new_prediction)
-print(new_prediction)
 sys.stdout.flush()
 
 # %%
