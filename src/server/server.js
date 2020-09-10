@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: true}));
+const Data = require("./models/data");
 
 var mongoose=require('mongoose');
 
@@ -60,23 +61,48 @@ app.post("/signup",(req,res)=>{
     });
 });
 
-app.post('/userData', async (req,res) => {
+
+app.post('/userData', (req,res) => {
     console.log('inside userData');
     const {spawn} = require('child_process');
     console.log('after spawn');
     
+    const user_id = req.body.user_id;
+    let runs = req.body.runs;
+    let wickets = req.body.wickets; 
+    let overs = req.body.overs;
+    let striker_run =  req.body.striker;
+    let non_striker_run = req.body.nstriker;
+    let last_run = req.body.last_run;
+    let last_wickets = req.body.last_wickets;
+    let predicted_score;
     //const python = await spawn('python', ['C:/Users/admin/Desktop/Cricket-Wizard-Result-Prediction-System-master/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
-    const python = await spawn('python', ['C:/Users/admin/Documents/CMPE-295A/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+    const python =  spawn('python', ['C:/Users/admin/Desktop/CMPE-295A/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
     console.log('after python file is called');
     python.stderr.pipe(process.stderr);
-    python.stdout.on('data', function (data) {
+    python.stdout.on('data', async function (data) {
         dataToSend = data.toString();
-        console.log('dataToSend', dataToSend);
-        res.send(dataToSend)
+        predicted_score = dataToSend.split("[")[1].split("]")[0];
+        console.log("predicted_score: ", predicted_score)
+        let dta = new Data({
+            user_id,
+            runs,
+            wickets,
+            overs,
+            striker_run,
+            non_striker_run,
+            last_run,
+            last_wickets,
+            predicted_score
+        });
+        dta.save();
+        console.log("user_id: ", user_id)
+        let records = await Data.find({user_id: user_id});
+        //console.log(records);
+        res.send(records);
     });
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
-        
     });
 
 })
