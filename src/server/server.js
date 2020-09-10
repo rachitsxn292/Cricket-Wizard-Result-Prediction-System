@@ -47,7 +47,7 @@ app.get('/',(req,res)=>{
 app.post("/signup",(req,res)=>{
     bcrypt.hash(req.body.password, saltRounds, function (err,   hash) {
     var newUser = new UserSchema({
-        name: req.body.email,
+        email: req.body.email,
         password: hash
     });
     newUser
@@ -105,6 +105,30 @@ app.post('/userData', (req,res) => {
         console.log(`child process close all stdio with code ${code}`);
     });
 
+})
+
+app.post('/login', async (req,res) => {
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+        const user = await UserSchema.findOne({ email });
+        if(!user){
+            res.status(400).json("user doesn't exist!!");
+        }else{
+          const imatch = await bcrypt.compare(password, user.password);
+          if(!imatch){
+              console.log("invalid password");
+              res.status(400).json("invalid password");
+          }
+          else{
+              console.log("User login successful");
+              res.status(200).send("User login successful")
+          }
+        }
+    }catch(err){
+        console.error(err.message);
+        res.status(500).json('server error');
+    }
 })
 
 //Login API
