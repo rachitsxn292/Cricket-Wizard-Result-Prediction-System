@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 const DataSchema = mongoose.Schema({
-    user_id:{
+    email:{
         type: String,
         require:true
     },

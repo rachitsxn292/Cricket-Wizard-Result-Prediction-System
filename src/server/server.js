@@ -67,7 +67,7 @@ app.post('/userData', (req,res) => {
     const {spawn} = require('child_process');
     console.log('after spawn');
     
-    const user_id = req.body.user_id;
+    const email = req.body.email;
     let runs = req.body.runs;
     let wickets = req.body.wickets; 
     let overs = req.body.overs;
@@ -85,7 +85,7 @@ app.post('/userData', (req,res) => {
         predicted_score = dataToSend.split("[")[1].split("]")[0];
         console.log("predicted_score: ", predicted_score)
         let dta = new Data({
-            user_id,
+            email,
             runs,
             wickets,
             overs,
@@ -96,8 +96,8 @@ app.post('/userData', (req,res) => {
             predicted_score
         });
         dta.save();
-        console.log("user_id: ", user_id)
-        let records = await Data.find({user_id: user_id});
+        console.log("user_id: ", email)
+        let records = await Data.find({email});
         //console.log(records);
         res.send(records);
     });
