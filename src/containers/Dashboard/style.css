@@ -32,3 +32,37 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+
+.prediction_btn{
+  width: 50%;
+  padding: 5px;
+}
+
+.vl {
+  border-left: 1px solid black;
+  height: 350px;
+}
+
+.h2-dash{
+  position: absolute;
+  top: 120px;
+  left:800px;
+}
+.paypal-btn-dash{
+  position: absolute;
+  top: 120px;
+  left:800px;
+
+}
+.premium-btn{
+  position: absolute;
+  top: 548px;
+  left:800px;
+}
+
+input.placeholder {
+  text-align: center;
+}
+body,h1,h2,h3,h4,h5,h6{
+  font-family: Oswald;
+}
