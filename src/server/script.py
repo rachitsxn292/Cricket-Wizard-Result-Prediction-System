@@ -9,10 +9,9 @@ def custom_accuracy(y_test,y_pred,thresold):
             right += 1
     return ((right/l)*100)
 
-
 import pandas as pd
 # Importing the dataset
-dataset = pd.read_csv('data\odi.csv')
+dataset = pd.read_csv('/Users/rachitsaxena/Desktop/CMPE-295A/src/server/data/odi.csv')
 X = dataset.iloc[:,[7,8,9,12,13]].values
 y = dataset.iloc[:, 14].values
 
@@ -51,7 +50,7 @@ score
 # %%
 import numpy as np
 new_prediction = lin.predict(sc.transform(np.array([[sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5]]])))
-print("Prediction score:" , new_prediction)
+print(new_prediction)
 sys.stdout.flush()
 
 # %%
