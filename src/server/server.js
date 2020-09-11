@@ -100,11 +100,21 @@ app.post('/userData', (req,res) => {
         let records = await Data.find({email});
         //console.log(records);
         res.send(records);
+        console.log("recods: ", records)
     });
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
     });
 
+})
+
+//Get Visualization Data
+app.get('/getDataVisual', async(req, res) => {
+    const email = req.query.email;
+    let records = await Data.find({email});
+    console.log("records: ", records);
+    console.log("Email in Visual Backend",email)
+    res.send(records);
 })
 
 //Login API

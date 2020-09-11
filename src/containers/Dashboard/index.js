@@ -3,7 +3,8 @@ import './style.css';
 import Axios from 'axios';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
-
+import {Bar} from 'react-chartjs-2';
+import {Link} from 'react-router-dom';
 import {  Navbar, Nav, Form, FormControl, Jumbotron} from 'react-bootstrap';
 import { PayPalButton } from "react-paypal-button-v2"
 
@@ -21,6 +22,7 @@ class dashboard extends Component{
                 striker:'',
                 nstriker:'',
                 pred:'',
+                
             }
         }
     }
@@ -115,6 +117,7 @@ render()
                     <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                    <Nav.Link href="/visual">Visualizations </Nav.Link>
                     </Nav>
                     <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -177,7 +180,7 @@ render()
                                           });
                                         }}
                                     />
-                                    <h3>------------------ Enter Promo Code------------------</h3>
+                                    <h3>-------------Enter Promo Code------------</h3>
                                     <div class="form-group">
                                             <input type="promoCode" class="form-control" id="nonStriker" placeholder="Enter Promo Code in XXX-YYY format"  onChange={this.nstriker.bind(this)} name="nonStriker"/>
                                     </div>
@@ -190,7 +193,7 @@ render()
                             <div class="row">
                                 <div class="col-md-12"> 
                                     <h6>* all fields are mandatory</h6>
-                                    <button type="submit" class="btn btn-danger btn-lg prediction_btn"  onClick={this.submitData.bind(this)}>Press for Normal Prediction</button>
+                                    <button type="submit" class="btn btn-danger btn-lg prediction_btn"  onClick={this.submitData.bind(this)}><Link to='/visual'>Press for Normal Prediction</Link></button>
                                 </div>
                             </div>
                         </div>
@@ -201,9 +204,9 @@ render()
                                 </div>
                             </div>
                         </div>
-                          
                         </Jumbotron>
-                    </div>  
+                        
+        </div>  
 
                
     )}
