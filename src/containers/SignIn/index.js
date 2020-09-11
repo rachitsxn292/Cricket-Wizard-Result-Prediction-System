@@ -3,6 +3,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import './index.css';
 import { Button, Jumbotron} from 'react-bootstrap';
+import {Redirect} from 'react-router';
 
 class SignIn extends Component{
     constructor(props){
@@ -42,8 +43,14 @@ class SignIn extends Component{
     }
     
   render(){
+    let redirectVar=null;
+    var email = localStorage.getItem("emailLS");
+    if((email)){
+        redirectVar=<Redirect to='/'/>
+    }
       return(
          <div>
+             {redirectVar}
              <Jumbotron class="sign-jbt">
                     <div class="container">
                         <div class="row">
