@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: true}));
+const Data = require("./models/data");
 
 var mongoose=require('mongoose');
 
@@ -61,8 +62,14 @@ app.post("/signup",(req,res)=>{
     });
 });
 
+<<<<<<< HEAD
 app.post('/userData', (req,res) => {
     console.log('inside userData',req.body.email);
+=======
+
+app.post('/userData', (req,res) => {
+    console.log('inside userData');
+>>>>>>> 60167ab3b77acaf2d45e5afff49cee8b4e90e4cb
     const {spawn} = require('child_process');
     console.log('after spawn');
     
@@ -76,7 +83,11 @@ app.post('/userData', (req,res) => {
     let last_wickets = req.body.last_wickets;
     let predicted_score;
     //const python = await spawn('python', ['C:/Users/admin/Desktop/Cricket-Wizard-Result-Prediction-System-master/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+<<<<<<< HEAD
     const python =  spawn('python', ['/Users/rachitsaxena/Desktop/CMPE-295A/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+=======
+    const python =  spawn('python', ['C:/Users/admin/Desktop/CMPE-295A/src/server/script.py', req.body.runs, req.body.wickets, req.body.overs, req.body.striker, req.body.nstriker]);
+>>>>>>> 60167ab3b77acaf2d45e5afff49cee8b4e90e4cb
     console.log('after python file is called');
     python.stderr.pipe(process.stderr);
     python.stdout.on('data', async function (data) {
@@ -104,6 +115,30 @@ app.post('/userData', (req,res) => {
         console.log(`child process close all stdio with code ${code}`);
     });
 
+})
+
+app.post('/login', async (req,res) => {
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+        const user = await UserSchema.findOne({ email });
+        if(!user){
+            res.status(400).json("user doesn't exist!!");
+        }else{
+          const imatch = await bcrypt.compare(password, user.password);
+          if(!imatch){
+              console.log("invalid password");
+              res.status(400).json("invalid password");
+          }
+          else{
+              console.log("User login successful");
+              res.status(200).send("User login successful")
+          }
+        }
+    }catch(err){
+        console.error(err.message);
+        res.status(500).json('server error');
+    }
 })
 
 //Login API
