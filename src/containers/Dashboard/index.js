@@ -133,33 +133,33 @@ render()
                                 <div class="col-md-3"> 
                                     <div class="form-group">
                                         <label for="runs">Runs:</label>
-                                        <input type="runs" class="form-control" id="email" placeholder="Enter Runs" value={this.state.runs} onChange={this.runs.bind(this)} name="runs"/>
+                                        <input type="runs" class="form-control" id="email" placeholder="Enter Runs" value={this.state.runs} onChange={this.runs.bind(this)} name="runs" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="wickets">Wickets:</label>
-                                        <input type="wickets" class="form-control" id="wickets" placeholder="Enter Wickets" value={this.state.wickets} onChange={this.wickets.bind(this)} name="wickets"/>
+                                        <input type="wickets" class="form-control" id="wickets" placeholder="Enter Wickets" value={this.state.wickets} onChange={this.wickets.bind(this)} name="wickets" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="overs">Overs:</label>
-                                        <input type="overs" class="form-control" id="overs" placeholder="Enter Over" value={this.state.overs} onChange={this.overs.bind(this)} name="overs"/>
+                                        <input type="overs" class="form-control" id="overs" placeholder="Enter Over" value={this.state.overs} onChange={this.overs.bind(this)} name="overs" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="runsLast">Last Run:</label>
-                                        <input type="runsLast" class="form-control" id="runsLast" placeholder="Enter Last Run" value={this.state.lrun} onChange={this.lrun.bind(this)} name="runsLast"/>
+                                        <input type="runsLast" class="form-control" id="runsLast" placeholder="Enter Last Run" value={this.state.lrun} onChange={this.lrun.bind(this)} name="runsLast" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="lastWicket">Last Wickets:</label>
-                                        <input type="lastWicket" class="form-control" id="lastWicket" placeholder="Enter Last Wickets" value={this.state.lwicket} onChange={this.lwicket.bind(this)} name="lastWicket"/>
+                                        <input type="lastWicket" class="form-control" id="lastWicket" placeholder="Enter Last Wickets" value={this.state.lwicket} onChange={this.lwicket.bind(this)} name="lastWicket" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="striker">Striker:</label>
-                                        <input type="striker" class="form-control" id="striker" placeholder="Enter Striker" value={this.state.striker} onChange={this.striker.bind(this)} name="striker"/>
+                                        <input type="striker" class="form-control" id="striker" placeholder="Enter Striker" value={this.state.striker} onChange={this.striker.bind(this)} name="striker" required/>
                                     </div>
                                     <div class="form-group">
                                             <label for="nonStriker">Non Striker:</label>
-                                            <input type="nonStriker" class="form-control" id="nonStriker" placeholder="Enter Non Striker" value={this.state.nstriker} onChange={this.nstriker.bind(this)} name="nonStriker"/>
+                                            <input type="nonStriker" class="form-control" id="nonStriker" placeholder="Enter Non Striker" value={this.state.nstriker} onChange={this.nstriker.bind(this)} name="nonStriker" required/>
                                     </div>
                                     <div>
                                       

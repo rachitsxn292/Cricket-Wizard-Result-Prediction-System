@@ -9,8 +9,8 @@ import Chart from "react-google-charts";
 
 
 export default class visual extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             data:[],
             dated:[],
@@ -40,6 +40,8 @@ export default class visual extends Component{
                     data: chartData,
                     dated: dateData
                 })
+                this.props.history.push('/visual');
+                
             });
         },3000)
     }
