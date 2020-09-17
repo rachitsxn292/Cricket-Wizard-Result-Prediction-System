@@ -7,7 +7,7 @@ const DataSchema = mongoose.Schema({
     },
     time:{
         type: Date,
-        default: Date.now
+        default: Date
     },
     runs:{
         type:Number,

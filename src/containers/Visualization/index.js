@@ -12,25 +12,37 @@ export default class visual extends Component{
     constructor(){
         super();
         this.state = {
-            data:[]
+            data:[],
+            dated:[],
         }
         this.Logout = this.Logout.bind(this);
     }
 
     componentDidMount(){
-        var email = localStorage.getItem("emailLS");
-        console.log("Email for User in Visual",email);
-        const chartData = [['Time','Runs', 'Wickets','Overs','Striker Run','Non Striker Run','Predicted Score']];
-        Axios.get('http://localhost:3001/getDataVisual', {params: {email}})
-        .then(res => {
-            for (let i = 0; i < res.data.length; i += 1) {
-                chartData.push([res.data[i].time,res.data[i].runs, res.data[i].wickets,res.data[i].overs,res.data[i].striker_run,res.data[i].non_striker_run,res.data[i].predicted_score])
-              }
-            this.setState ({
-                data: chartData
-            })
-        });
-        
+        this.getData();
+      }
+
+    getData(){
+        setTimeout(()=>{
+            var email = localStorage.getItem("emailLS");
+            const chartData = [['Time','Runs', 'Wickets','Overs','Striker Run','Non Striker Run','Predicted Score']];
+            const dateData = [['Date','Time']];
+            Axios.get('http://localhost:3001/getDataVisual', {params: {email}})
+            .then(res => {
+                for (let i = 0; i < res.data.length; i += 1) {
+                    chartData.push([res.data[i].time,res.data[i].runs, res.data[i].wickets,res.data[i].overs,res.data[i].striker_run,res.data[i].non_striker_run,Math.round(res.data[i].predicted_score)])
+                    const x = res.data[i].time
+                    const y = x.split("T")
+                    const z =new Date( "'" +(y[0].split("-").join("-"))+"'")
+                    console.log("Date in Visual",z,y[1])
+                    dateData.push([z,Math.round(res.data[i].predicted_score)])
+                }
+                this.setState ({
+                    data: chartData,
+                    dated: dateData
+                })
+            });
+        },3000)
     }
 
     Logout = () => {
@@ -100,14 +112,14 @@ export default class visual extends Component{
                         height={350}
                         chartType="Calendar"
                         loader={<div>Loading Chart</div>}
-                        data={[
-                            [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
-                            [new Date(2020, 8, 4), 38177],
-                            [new Date(2020, 8, 5), 38705],
-                            [new Date(2020, 8, 12), 38210],
-                            [new Date(2020, 8, 13), 38029],
-                            [new Date(2019, 8, 13), 38029],
-                        ]}
+                        data={this.state.dated}
+                        //     [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
+                        //     [new Date(2020, 8, 4), 38177],
+                        //     [new Date(2020, 8, 5), 38705],
+                        //     [new Date(2020, 8, 12), 38210],
+                        //     [new Date(2020, 8, 13), 38029],
+                        //     [new Date(2019, 8, 13), 38029],
+                        // ]}
                         options={{
                             //title: 'Red Sox Attendance',
                             lantedTextAngle:180
