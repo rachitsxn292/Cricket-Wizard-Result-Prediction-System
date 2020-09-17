@@ -5,6 +5,7 @@ import {Redirect} from 'react-router';
 import {Link} from 'react-router-dom';
 import {  Navbar, Nav, Form, FormControl, Jumbotron} from 'react-bootstrap';
 import data from '../../server/models/data';
+import Chart from "react-google-charts";
 
 
 export default class visual extends Component{
@@ -19,12 +20,15 @@ export default class visual extends Component{
     componentDidMount(){
         var email = localStorage.getItem("emailLS");
         console.log("Email for User in Visual",email);
+        const chartData = [['Time','Runs', 'Wickets','Overs','Striker Run','Non Striker Run','Predicted Score']];
         Axios.get('http://localhost:3001/getDataVisual', {params: {email}})
         .then(res => {
+            for (let i = 0; i < res.data.length; i += 1) {
+                chartData.push([res.data[i].time,res.data[i].runs, res.data[i].wickets,res.data[i].overs,res.data[i].striker_run,res.data[i].non_striker_run,res.data[i].predicted_score])
+              }
             this.setState ({
-                data: res.data
+                data: chartData
             })
-            console.log("Data",this.state.data)
         });
         
     }
@@ -47,6 +51,7 @@ export default class visual extends Component{
         <>
         <div className="App"> 
         {redirectVar}
+        
         <Navbar class="DashboardColor" expand="lg" >
                 <Navbar.Brand href="/">Cricket Wizard</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -63,7 +68,30 @@ export default class visual extends Component{
                 </Navbar.Collapse>
             </Navbar>
             <Jumbotron>
-                    
+            <div class="cl-chart">
+                <h3>Prediction of Requested Data</h3>
+                <Chart
+                    width={700}
+                    height={500}
+                    chartType="ColumnChart"
+                    loader={<div>Loading Chart</div>}
+                    data={this.state.data}
+                    options={{  
+                    titleTextStyle:{
+                        fontSize: 23,
+                    },
+                    chartArea: { width: '60%' },
+                    bar: {groupWidth: "85%"},
+                    hAxis: {
+                        title: 'Data',
+                    },
+                    vAxis: {
+                        title: 'Range',
+                    },
+                    }}
+                    legendToggle
+                />  
+            </div>     
              </Jumbotron>
                         
         </div>  

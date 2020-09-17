@@ -10,35 +10,35 @@ const DataSchema = mongoose.Schema({
         default: Date.now
     },
     runs:{
-        type:String,
+        type:Number,
         require:true
     },
     wickets:{
-        type:String,
+        type:Number,
         require:true
     },
     overs:{
-        type:String,
+        type:Number,
         require:true
     },
     last_run:{
-        type:String,
+        type:Number,
         require:true
     },
     last_wickets:{
-        type:String,
+        type:Number,
         require:true
     },
     striker_run:{
-        type:String,
+        type:Number,
         require:true
     },
     non_striker_run:{
-        type:String,
+        type:Number,
         require:true
     },
     predicted_score:{
-        type: String
+        type: Number
     }
 })
 
