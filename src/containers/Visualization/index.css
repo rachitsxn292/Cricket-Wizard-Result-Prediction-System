@@ -1,7 +1,21 @@
-.cl-chart{
+.cl-chart-bar{
   margin: auto;
-  width: 50%;
+  width: 100%;
 }
-.cl-chart h3{
-    text-align: center;
+.cl-chart-bar h3{
+    text-align: left;
+}
+
+.l-chart-calendar{
+  position: absolute;
+  top: 480px;
+  left:650px;
+  transform: rotate(90deg);
+}
+
+#cl-h3{
+  position: absolute;
+  top: 110px;
+  left: 1000px;
+
 }

@@ -68,11 +68,11 @@ export default class visual extends Component{
                 </Navbar.Collapse>
             </Navbar>
             <Jumbotron>
-            <div class="cl-chart">
-                <h3>Prediction of Requested Data</h3>
+            <div class="cl-chart-bar">
+                <h3><u>Prediction of Requested Data</u></h3>
                 <Chart
-                    width={700}
-                    height={500}
+                    width={900}
+                    height={850}
                     chartType="ColumnChart"
                     loader={<div>Loading Chart</div>}
                     data={this.state.data}
@@ -91,7 +91,31 @@ export default class visual extends Component{
                     }}
                     legendToggle
                 />  
-            </div>     
+            </div>
+            <div>
+                <h3 id="cl-h3"><u>User Prediction Timeline</u></h3>
+                <div class="l-chart-calendar">
+                    <Chart
+                        width={1000}
+                        height={350}
+                        chartType="Calendar"
+                        loader={<div>Loading Chart</div>}
+                        data={[
+                            [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
+                            [new Date(2020, 8, 4), 38177],
+                            [new Date(2020, 8, 5), 38705],
+                            [new Date(2020, 8, 12), 38210],
+                            [new Date(2020, 8, 13), 38029],
+                            [new Date(2019, 8, 13), 38029],
+                        ]}
+                        options={{
+                            //title: 'Red Sox Attendance',
+                            lantedTextAngle:180
+                        }}
+                        rootProps={{ 'data-testid': '1' }}
+                        />
+                </div> 
+            </div> 
              </Jumbotron>
                         
         </div>  
