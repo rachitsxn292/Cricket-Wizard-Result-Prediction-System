@@ -34,7 +34,6 @@ export default class visual extends Component{
                     const x = res.data[i].time
                     const y = x.split("T")
                     const z =new Date( "'" +(y[0].split("-").join("-"))+"'")
-                    console.log("Date in Visual",z,y[1])
                     dateData.push([z,Math.round(res.data[i].predicted_score)])
                 }
                 this.setState ({
@@ -46,9 +45,9 @@ export default class visual extends Component{
     }
 
     Logout = () => {
-        console.log("Cookie Removed You are logged out");
+        //console.log("Cookie Removed You are logged out");
         localStorage.removeItem("emailLS", { path: '/' });
-        console.log("Local Storage",localStorage.getItem("emailLS"))
+        //console.log("Local Storage",localStorage.getItem("emailLS"))
 
     }
     
@@ -113,15 +112,7 @@ export default class visual extends Component{
                         chartType="Calendar"
                         loader={<div>Loading Chart</div>}
                         data={this.state.dated}
-                        //     [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
-                        //     [new Date(2020, 8, 4), 38177],
-                        //     [new Date(2020, 8, 5), 38705],
-                        //     [new Date(2020, 8, 12), 38210],
-                        //     [new Date(2020, 8, 13), 38029],
-                        //     [new Date(2019, 8, 13), 38029],
-                        // ]}
                         options={{
-                            //title: 'Red Sox Attendance',
                             lantedTextAngle:180
                         }}
                         rootProps={{ 'data-testid': '1' }}
