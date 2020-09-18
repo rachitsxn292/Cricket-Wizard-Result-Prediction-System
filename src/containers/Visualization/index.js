@@ -14,6 +14,7 @@ export default class visual extends Component{
         this.state = {
             data:[],
             dated:[],
+            bardata:[]
         }
         this.Logout = this.Logout.bind(this);
     }
@@ -27,6 +28,7 @@ export default class visual extends Component{
             var email = localStorage.getItem("emailLS");
             const chartData = [['Time','Runs', 'Wickets','Overs','Striker Run','Non Striker Run','Predicted Score']];
             const dateData = [['Date','Time']];
+            const barData =[['Time','Predicted Score']]
             Axios.get('http://localhost:3001/getDataVisual', {params: {email}})
             .then(res => {
                 for (let i = 0; i < res.data.length; i += 1) {
@@ -35,10 +37,12 @@ export default class visual extends Component{
                     const y = x.split("T")
                     const z =new Date( "'" +(y[0].split("-").join("-"))+"'")
                     dateData.push([z,Math.round(res.data[i].predicted_score)])
+                    barData.push([y[0],Math.round(res.data[i].predicted_score)])
                 }
                 this.setState ({
                     data: chartData,
-                    dated: dateData
+                    dated: dateData,
+                    bardata: barData
                 })
                 this.props.history.push('/visual');
                 
@@ -85,7 +89,7 @@ export default class visual extends Component{
                 <h3><u>Prediction of Requested Data</u></h3>
                 <Chart
                     width={900}
-                    height={850}
+                    height={600}
                     chartType="ColumnChart"
                     loader={<div>Loading Chart</div>}
                     data={this.state.data}
@@ -104,6 +108,27 @@ export default class visual extends Component{
                     }}
                     legendToggle
                 />  
+                <br/>
+                <Chart
+                    width={'900px'}
+                    height={'300px'}
+                    chartType="BarChart"
+                    loader={<div>Loading Chart</div>}
+                    data={this.state.bardata}
+                    options={{
+                        title: 'All Requested Predicted Score',
+                        chartArea: { width: '50%' },
+                        hAxis: {
+                        title: 'Score',
+                        minValue: 0,
+                        },
+                        vAxis: {
+                        title: 'Range',
+                        },
+                    }}
+                    // For tests
+                    rootProps={{ 'data-testid': '1' }}
+                    />
             </div>
             <div>
                 <h3 id="cl-h3"><u>User Prediction Timeline</u></h3>
