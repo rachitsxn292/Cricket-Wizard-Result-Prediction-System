@@ -22,7 +22,7 @@ class dashboard extends Component{
                 striker:'',
                 nstriker:'',
                 pred:'',
-                
+                promo:''
             }
         }
     }
@@ -69,6 +69,12 @@ class dashboard extends Component{
         })
     }
 
+    promo(event){
+        this.setState({
+            promo: event.target.value
+        })
+    }
+
     Logout = () => {
         cookie.remove('email', { path: '/' })
         console.log("Cookie Removed You are logged out");
@@ -96,6 +102,17 @@ class dashboard extends Component{
                 pred: response.data
             })
             //this.props.history.push('/')
+        });
+    }
+
+
+    submitPromo(event){
+        Axios.post('http://localhost:3001/promocode',{
+            promo: this.state.promo
+        })
+        .then(response=>{
+            alert("Promo Code Applied")
+            this.props.history.push('/premium')
         });
     }
 
@@ -182,7 +199,7 @@ render()
                                     />
                                     <h3>-------------Enter Promo Code------------</h3>
                                     <div class="form-group">
-                                            <input type="promoCode" class="form-control" id="nonStriker" placeholder="Enter Promo Code in XXX-YYY format"  onChange={this.nstriker.bind(this)} name="nonStriker"/>
+                                            <input type="promoCode" class="form-control" id="nonStriker" placeholder="Enter Promo Code in XXX-YYY format"  onChange={this.promo.bind(this)} name="nonStriker"/>
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +217,7 @@ render()
                         <div class="container premium-btn">
                             <div class="row">
                                 <div class="col-md-12"> 
-                                    <button type="submit" class="btn btn-danger btn-lg prediction_btn"  onClick={this.submitData.bind(this)}>Validate Promo Code</button>
+                                    <button type="submit" class="btn btn-danger btn-lg prediction_btn"  onClick={this.submitPromo.bind(this)}>Validate Promo Code</button>
                                 </div>
                             </div>
                         </div>

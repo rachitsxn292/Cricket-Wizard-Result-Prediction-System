@@ -6,6 +6,7 @@ import login from './containers/Home/index';
 import dashboard from './containers/Dashboard/index';
 import signIn from './containers/SignIn/index';
 import visual from './containers/Visualization/index';
+import premium from './containers/premium/index';
 
 function routers() {
   return (
@@ -15,6 +16,7 @@ function routers() {
                 <Route path="/dashboard" component={dashboard}/>
                 <Route path="/signin" component={signIn}/>
                 <Route path="/visual" component={visual}/>
+                <Route path="/premium" component={premium}/>
                 </div>
         </BrowserRouter>   
   );
