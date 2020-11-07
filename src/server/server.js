@@ -143,6 +143,43 @@ app.post('/login', async (req,res) => {
     }
 })
 
+app.post('/premium', (req,res) => {
+    console.log('inside userData');
+    const {spawn} = require('child_process');
+    console.log('after spawn');
+    
+
+    const python =  spawn('python', ['/Users/rachitsaxena/Desktop/CMPE-295A/src/server/Final model.py', req.body.team1, req.body.team2, req.body.city, req.body.toss, req.body.bteam, req.body.venue, req.body.winner]);
+    console.log('after python file is called');
+    python.stderr.pipe(process.stderr);
+    python.stdout.on('data', async function (data) {
+        dataToSend = data.toString();
+        console.log("prediction in premium: ", dataToSend)
+        res.send(dataToSend);
+    });
+    python.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+    });
+
+})
+
+app.post("/promocode", (req, res) => {
+    var arr = ["CRICWIZ15698", "CRICWIZ12848", "CRICWIZ17392", "CRICWIZ4558", "CRICWIZ1325"]
+    var flag = false;
+    for(i=0; i < arr.length; i++){
+        if (req.body.promo == arr[i]){
+            flag = true;
+            break;
+        }
+    }
+    if(flag == true){
+        res.status(200).json("Promcode applied succesfully");
+        console.log("Successfull Promo");
+    }
+    else{
+        res.status(400).json("invalid promocode");
+    }
+})
 
 
 app.listen(3001);
