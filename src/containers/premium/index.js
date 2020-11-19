@@ -18,7 +18,8 @@ class premium extends Component{
                 bteam:'',
                 venue:'',
                 pred:'',
-                winner:''
+                winner:'',
+                image:''
                 
             }
         }
@@ -79,6 +80,14 @@ class premium extends Component{
     
     submitData(event){
         var email = localStorage.getItem("emailLS");
+        var images = ["https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/HyderabadDeccanChargers.png/200px-HyderabadDeccanChargers.png"
+                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Kolkata_Knight_Riders_Logo.svg/1200px-Kolkata_Knight_Riders_Logo.svg.png"
+                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Chennai_Super_Kings_Logo.svg/1200px-Chennai_Super_Kings_Logo.svg.png"
+                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Royal_Challengers_Bangalore_2020.svg/250px-Royal_Challengers_Bangalore_2020.svg.png"
+                    ,"https://i.pinimg.com/originals/28/09/a8/2809a841bb08827603ccac5c6aee8b33.png"
+                    ,"https://seeklogo.com/images/I/ipl-kings-xi-punjab-logo-6747D5C02B-seeklogo.com.png"
+                    ,"https://www.pngkit.com/png/full/269-2699483_delhi-daredevils-logo-delhidaredevils-delhi-dare-devils-logo.png"
+                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Rajasthan_Royals_Logo.svg/1200px-Rajasthan_Royals_Logo.svg.png"]
         Axios.post('http://localhost:3001/premium',{
             email,
             team1:this.state.team1,
@@ -90,6 +99,55 @@ class premium extends Component{
             winner: this.state.team1
         })
         .then(response=>{
+            var x = response.data;
+            if (x.trim()==='Deccan Chargers'){
+                console.log("Inside Deccan Charges");
+                this.setState({
+                    image: images[0]
+                })
+            }
+            else if (x.trim()==='Kolkata Knight Riders'){
+                console.log("Inside KKR");
+                this.setState({
+                    image: images[1]
+                })
+            }
+            else if (x.trim()==='Chennai Super Kings'){
+                console.log("Inside CSK");
+                this.setState({
+                    image: images[2]
+                })
+            }
+            else if (x.trim()==='Royal Challengers Bangalore'){
+                console.log("Inside RCB");
+                this.setState({
+                    image: images[3]
+                })
+            }
+            else if (x.trim()==='Mumbai Indians'){
+                console.log("Inside MI");
+                this.setState({
+                    image: images[4]
+                })
+            }
+            else if (x.trim()==='Kings XI Punjab'){
+                console.log("Inside KXIP");
+                this.setState({
+                    image: images[5]
+                })
+            }
+            else if (x.trim()==='Delhi Daredevils'){
+                console.log("Inside DD");
+                this.setState({
+                    image: images[6]
+                })
+            }
+            else if (x.trim()==='Rajasthan Royals'){
+                console.log("Inside RR");
+                this.setState({
+                    image: images[7]
+                })
+            }
             //console.log("Data Inserted", response,response.data);
             this.setState({
                 pred: response.data
@@ -126,6 +184,7 @@ render()
             </Navbar>
             <Jumbotron>
             <div class="premiumres"><h2>{this.state.pred}</h2></div>
+            <div class="prem-img"><img src={this.state.image} width="150" height="200"></img></div>
                     <div class="container">
                         <h3>Enter details to get Predictions</h3>
                         <div class="row">
@@ -182,6 +241,7 @@ render()
                             <div class="row">
                                 <div class="col-md-12"> 
                                 </div>
+                                
                             </div>
                         </div>
                         </Jumbotron>              
