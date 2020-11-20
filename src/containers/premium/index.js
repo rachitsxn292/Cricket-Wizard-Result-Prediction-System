@@ -4,6 +4,8 @@ import Axios from 'axios';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import {  Navbar, Nav, Form, FormControl, Jumbotron} from 'react-bootstrap';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
 
 class premium extends Component{
     constructor(props)
@@ -19,7 +21,8 @@ class premium extends Component{
                 venue:'',
                 pred:'',
                 winner:'',
-                image:''
+                image:'',
+                upload:''
                 
             }
         }
@@ -79,15 +82,19 @@ class premium extends Component{
     
     
     submitData(event){
+        this.setState({
+
+            upload: <div><h4>Loading...</h4><Loader type="Puff" color="black" height={200} width={200} /></div>
+        })
         var email = localStorage.getItem("emailLS");
-        var images = ["https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/HyderabadDeccanChargers.png/200px-HyderabadDeccanChargers.png"
-                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Kolkata_Knight_Riders_Logo.svg/1200px-Kolkata_Knight_Riders_Logo.svg.png"
-                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Chennai_Super_Kings_Logo.svg/1200px-Chennai_Super_Kings_Logo.svg.png"
-                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Royal_Challengers_Bangalore_2020.svg/250px-Royal_Challengers_Bangalore_2020.svg.png"
-                    ,"https://i.pinimg.com/originals/28/09/a8/2809a841bb08827603ccac5c6aee8b33.png"
-                    ,"https://seeklogo.com/images/I/ipl-kings-xi-punjab-logo-6747D5C02B-seeklogo.com.png"
-                    ,"https://www.pngkit.com/png/full/269-2699483_delhi-daredevils-logo-delhidaredevils-delhi-dare-devils-logo.png"
-                    ,"https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Rajasthan_Royals_Logo.svg/1200px-Rajasthan_Royals_Logo.svg.png"]
+        var images = [<img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/HyderabadDeccanChargers.png/200px-HyderabadDeccanChargers.png" width="150" height="200"></img>
+                    ,<img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Kolkata_Knight_Riders_Logo.svg/1200px-Kolkata_Knight_Riders_Logo.svg.png" width="150" height="200"></img>
+                    ,<img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Chennai_Super_Kings_Logo.svg/1200px-Chennai_Super_Kings_Logo.svg.png" width="150" height="200"></img>
+                    ,<img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Royal_Challengers_Bangalore_2020.svg/250px-Royal_Challengers_Bangalore_2020.svg.png" width="150" height="200"></img>
+                    ,<img src="https://i.pinimg.com/originals/28/09/a8/2809a841bb08827603ccac5c6aee8b33.png" width="150" height="200"></img>
+                    ,<img src="https://seeklogo.com/images/I/ipl-kings-xi-punjab-logo-6747D5C02B-seeklogo.com.png" width="150" height="200"></img>
+                    ,<img src="https://www.pngkit.com/png/full/269-2699483_delhi-daredevils-logo-delhidaredevils-delhi-dare-devils-logo.png" width="150" height="200"></img>
+                    ,<img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Rajasthan_Royals_Logo.svg/1200px-Rajasthan_Royals_Logo.svg.png" width="150" height="200"></img>]
         Axios.post('http://localhost:3001/premium',{
             email,
             team1:this.state.team1,
@@ -100,6 +107,20 @@ class premium extends Component{
         })
         .then(response=>{
             var x = response.data;
+            //let upload ='';
+            // if (!(x)){
+            //     this.setState({
+
+            //      upload :<div class="loader-container"><div class="loader"></div></div>
+            //     })
+            //     console.log("Inside No Upload",this.state.upload)
+            // }
+            // else{
+            //     this.setState({
+            //         upload :""
+            //        })
+            //        console.log("Inside No Upload",this.state.upload)
+            // }
             if (x.trim()==='Deccan Chargers'){
                 console.log("Inside Deccan Charges");
                 this.setState({
@@ -160,6 +181,7 @@ render()
     {
         let prediction = this.state.pred;
         let redirectVar=null;
+        
         var email = localStorage.getItem("emailLS");
         if(!(email)){
             redirectVar=<Redirect to='/'/>
@@ -183,8 +205,15 @@ render()
                 </Navbar.Collapse>
             </Navbar>
             <Jumbotron>
-            <div class="premiumres"><h2>{this.state.pred}</h2></div>
-            <div class="prem-img"><img src={this.state.image} width="150" height="200"></img></div>
+        <div class="premiumres"><h2>{ (!(this.state.pred)) ? <div> {this.state.upload}</div> : <div> {this.state.pred}</div> }</h2></div>
+            
+        <div class="prem-img">{this.state.image}</div>
+            <div>
+           
+            </div>
+            {/* <div>
+                {this.state.upload}
+            </div> */}
                     <div class="container">
                         <h3>Enter details to get Predictions</h3>
                         <div class="row">
